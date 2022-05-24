@@ -6,6 +6,10 @@ class Column
     @rows = rows
   end
 
+  def full?
+    rows.none?(' ')
+  end
+
   def insert(marker)
     rows[lowest_available] = marker
     self.lowest_available += 1
