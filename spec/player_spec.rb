@@ -1,8 +1,10 @@
 require './lib/player'
 
 describe Player do
+  mark = "\u26AA"
+  subject(:player) { described_class.new(mark: mark) }
+
   describe '#play' do
-    subject(:player) { described_class.new }
 
     context 'when the input is between 1 and 7' do
       before do
@@ -36,6 +38,12 @@ describe Player do
       it "doesn't change @move" do
         expect { player.play }.not_to(change(player, :move))
       end
+    end
+  end
+
+  describe '#mark' do
+    it "returns the player's mark" do
+      expect(player.mark).to eq("\u26AA")
     end
   end
 end
