@@ -6,6 +6,7 @@ class Player
   end
 
   def play
-    self.move = gets.chomp.to_i
+    input = gets.chomp.to_i
+    self.move = input if input.between?(1, 7)
   end
 end
