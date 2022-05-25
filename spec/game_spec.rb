@@ -22,4 +22,23 @@ describe Game do
       end
     end
   end
+
+  describe '#within_range?' do
+    context 'when @input is between 1 and 7 (inclusive)' do
+      subject(:range_game) { described_class.new(input: 5) }
+
+      it 'returns true' do
+        expect(range_game.within_range?).to be(true)
+      end
+    end
+
+
+    context 'when @input is not between 1 and 7 (inclusive)' do
+      subject(:range_game) { described_class.new(input: 50) }
+
+      it 'returns true' do
+        expect(range_game.within_range?).to be(false)
+      end
+    end
+  end
 end
