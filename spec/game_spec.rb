@@ -41,4 +41,32 @@ describe Game do
       end
     end
   end
+
+  describe '#wait_for_valid_input' do
+    subject(:valid_game) { described_class.new }
+
+    context 'when @input is within range' do
+      it 'sends #accept_input once' do
+        allow(valid_game).to receive(:within_range?).and_return(true)
+        expect(valid_game).to receive(:accept_input).once
+        valid_game.wait_for_valid_input
+      end
+    end
+
+    context 'when @input is out of range once' do
+      it 'sends #accept_input twice' do
+        allow(valid_game).to receive(:within_range?).and_return(false, true)
+        expect(valid_game).to receive(:accept_input).twice
+        valid_game.wait_for_valid_input
+      end
+    end
+
+    context 'when @input is out of range 3 times' do
+      it 'sends #accept_input 4 times' do
+        allow(valid_game).to receive(:within_range?).and_return(false, false, false, true)
+        expect(valid_game).to receive(:accept_input).exactly(4).times
+        valid_game.wait_for_valid_input
+      end
+    end
+  end
 end
