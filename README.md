@@ -12,7 +12,7 @@ Game
 
 Turn
  - #initialize
- - #get_input
+ - #prompt_input
  - #within_range?
  - #show_out_of_range_error
  - @player
