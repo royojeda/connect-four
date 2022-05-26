@@ -34,4 +34,4 @@ Column
  - @rows: Array(6, ' ')
  - #lowest_available
  - #full?
- - #drop_into
+ - #drop_in
