@@ -10,4 +10,8 @@ class Turn
   def prompt_input
     self.move = gets.to_i
   end
+
+  def within_range?
+    move.between?(1, 7)
+  end
 end

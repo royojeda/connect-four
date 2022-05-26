@@ -52,4 +52,24 @@ describe Turn do
       end
     end
   end
+
+  describe '#within_range?' do
+    context 'when @move is between 1 and 7(inclusive)' do
+      move = 6
+      subject(:in_range_turn) { described_class.new(move: move) }
+
+      it 'returns true' do
+        expect(in_range_turn.within_range?).to be(true)
+      end
+    end
+  end
+
+  context 'when @move is not between 1 and 7(inclusive)' do
+    move = 999
+    subject(:outside_range_turn) { described_class.new(move: move) }
+
+    it 'returns false' do
+      expect(outside_range_turn.within_range?).to be(false)
+    end
+  end
 end
