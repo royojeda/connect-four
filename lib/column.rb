@@ -8,4 +8,8 @@ class Column
   def full?
     rows.none?(' ')
   end
+
+  def lowest_available
+    rows.index(' ')
+  end
 end
