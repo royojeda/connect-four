@@ -11,7 +11,10 @@ class Grid
 
   def four_connected?; end
 
-  def fits?(move); end
+  def fits?(turn)
+    selected_column_index = turn.move - 1
+    !columns[selected_column_index].full?
+  end
 
   def insert(move); end
 end
