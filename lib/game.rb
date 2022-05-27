@@ -1,9 +1,9 @@
 class Game
-  attr_reader :grid, :turn
-  attr_accessor :players, :current_player
+  attr_reader :grid
+  attr_accessor :players, :current_player, :turn
 
   def initialize(grid: Grid.new,
-                 turn: nil,
+                 turn: Turn.new,
                  players: ["\u26AA", "\u26AB"])
     @grid = grid
     @turn = turn
@@ -34,5 +34,16 @@ class Game
       turn.prompt_input
       break if turn.within_range? && grid.fits?
     end
+  end
+
+  def play
+    loop do
+      ensure_valid_turn
+      grid.insert(turn)
+      break if over?
+
+      switch_player
+    end
+    show_result
   end
 end

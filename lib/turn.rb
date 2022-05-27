@@ -1,5 +1,5 @@
 class Turn
-  attr_accessor :move
+  attr_accessor :move, :player
 
   def initialize(player: nil, move: nil, error: nil)
     @player = player

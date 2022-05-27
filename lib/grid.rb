@@ -4,4 +4,6 @@ class Grid
   def four_connected?; end
 
   def fits?; end
+
+  def insert(move); end
 end

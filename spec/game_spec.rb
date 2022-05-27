@@ -1,5 +1,6 @@
 require './lib/game'
 require './lib/grid'
+require './lib/turn'
 
 describe Game do
   describe '#over?' do
@@ -141,7 +142,7 @@ describe Game do
         allow(test_grid).to receive(:fits?).and_return(true)
       end
 
-      it 'calls Turn.promp_input twice' do
+      it 'calls Turn.prompt_input twice' do
         expect(test_turn).to receive(:prompt_input).twice
         turn_game.ensure_valid_turn
       end
@@ -154,7 +155,7 @@ describe Game do
         allow(test_grid).to receive(:fits?).and_return(true)
       end
 
-      it 'calls Turn.promp_input 4 times' do
+      it 'calls Turn.prompt_input 4 times' do
         expect(test_turn).to receive(:prompt_input).exactly(4).times
         turn_game.ensure_valid_turn
       end
@@ -167,7 +168,7 @@ describe Game do
         allow(test_grid).to receive(:fits?).and_return(false, false, true)
       end
 
-      it 'calls Turn.promp_input 3 times' do
+      it 'calls Turn.prompt_input 3 times' do
         expect(test_turn).to receive(:prompt_input).exactly(3).times
         turn_game.ensure_valid_turn
       end
@@ -180,9 +181,92 @@ describe Game do
         allow(test_grid).to receive(:fits?).and_return(true)
       end
 
-      it 'calls Turn.promp_input once' do
+      it 'calls Turn.prompt_input once' do
         expect(test_turn).to receive(:prompt_input).once
         turn_game.ensure_valid_turn
+      end
+    end
+  end
+
+  describe '#play' do
+    subject(:play_game) { described_class.new(turn: test_turn, grid: test_grid) }
+
+    let(:test_turn) { instance_double(Turn) }
+    let(:test_grid) { instance_double(Grid) }
+
+    before do
+      allow(test_grid).to receive(:insert)
+      allow(play_game).to receive(:ensure_valid_turn)
+      allow(play_game).to receive(:show_result)
+      allow(play_game).to receive(:switch_player)
+    end
+
+    context 'when Game#over? is true' do
+      before do
+        allow(play_game).to receive(:over?).and_return(true)
+        play_game.play
+      end
+
+      it 'sends Game#ensure_valid_turn once' do
+        expect(play_game).to have_received(:ensure_valid_turn).once
+      end
+
+      it 'sends Grid#insert once' do
+        expect(test_grid).to have_received(:insert).with(play_game.turn).once
+      end
+
+      it "doesn't send Game#switch_player" do
+        expect(play_game).not_to have_received(:switch_player)
+      end
+
+      it 'sends Game#show_result once' do
+        expect(play_game).to have_received(:show_result).once
+      end
+    end
+
+    context 'when Game#over? is false once' do
+      before do
+        allow(play_game).to receive(:over?).and_return(false, true)
+        play_game.play
+      end
+
+      it 'sends Game#ensure_valid_turn twice' do
+        expect(play_game).to have_received(:ensure_valid_turn).twice
+      end
+
+      it 'sends Grid#insert twice' do
+        expect(test_grid).to have_received(:insert).with(play_game.turn).twice
+      end
+
+      it 'sends Game#switch_player once' do
+        expect(play_game).to have_received(:switch_player).once
+      end
+
+      it 'sends Game#show_result once' do
+        expect(play_game).to have_received(:show_result).once
+      end
+    end
+
+    context 'when Game#over? is false 3 times' do
+      before do
+        allow(play_game).to receive(:over?).and_return(false, false, false, true)
+        play_game.play
+      end
+
+      it 'sends Game#ensure_valid_turn 4 times' do
+        expect(play_game).to have_received(:ensure_valid_turn).exactly(4).times
+      end
+
+      it 'sends Grid#insert 4 times' do
+        expect(test_grid).to have_received(:insert).with(play_game.turn).exactly(4).times
+      end
+
+      it 'sends Game#switch_player 3 times' do
+        expect(play_game).to have_received(:switch_player).exactly(3).times
+      end
+
+      it 'sends Game#show_result once' do
+        expect(play_game).to have_received(:show_result).once
       end
     end
   end
