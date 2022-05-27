@@ -127,4 +127,63 @@ describe Game do
       end
     end
   end
+
+  describe '#ensure_valid_turn' do
+    subject(:turn_game) { described_class.new(turn: test_turn, grid: test_grid) }
+
+    let(:test_turn) { instance_double(Turn) }
+    let(:test_grid) { instance_double(Grid) }
+
+    context 'when Turn.move is out of range once' do
+      before do
+        allow(test_turn).to receive(:prompt_input)
+        allow(test_turn).to receive(:within_range?).and_return(false, true)
+        allow(test_grid).to receive(:fits?).and_return(true)
+      end
+
+      it 'calls Turn.promp_input twice' do
+        expect(test_turn).to receive(:prompt_input).twice
+        turn_game.ensure_valid_turn
+      end
+    end
+
+    context 'when Turn.move is out of range 3 times' do
+      before do
+        allow(test_turn).to receive(:prompt_input)
+        allow(test_turn).to receive(:within_range?).and_return(false, false, false, true)
+        allow(test_grid).to receive(:fits?).and_return(true)
+      end
+
+      it 'calls Turn.promp_input 4 times' do
+        expect(test_turn).to receive(:prompt_input).exactly(4).times
+        turn_game.ensure_valid_turn
+      end
+    end
+
+    context 'when Turn.move overflows the grid twice' do
+      before do
+        allow(test_turn).to receive(:prompt_input)
+        allow(test_turn).to receive(:within_range?).and_return(true)
+        allow(test_grid).to receive(:fits?).and_return(false, false, true)
+      end
+
+      it 'calls Turn.promp_input 3 times' do
+        expect(test_turn).to receive(:prompt_input).exactly(3).times
+        turn_game.ensure_valid_turn
+      end
+    end
+
+    context "when Turn.move doesn't overflow the grid" do
+      before do
+        allow(test_turn).to receive(:prompt_input)
+        allow(test_turn).to receive(:within_range?).and_return(true)
+        allow(test_grid).to receive(:fits?).and_return(true)
+      end
+
+      it 'calls Turn.promp_input once' do
+        expect(test_turn).to receive(:prompt_input).once
+        turn_game.ensure_valid_turn
+      end
+    end
+  end
 end

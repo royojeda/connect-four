@@ -1,5 +1,5 @@
 class Game
-  attr_reader :grid
+  attr_reader :grid, :turn
   attr_accessor :players, :current_player
 
   def initialize(grid: Grid.new,
@@ -26,6 +26,13 @@ class Game
       puts "CONGRATULATIONS, player #{winning_player}! You've won the game"
     else
       puts 'GAME OVER! The game ends in a draw.'
+    end
+  end
+
+  def ensure_valid_turn
+    loop do
+      turn.prompt_input
+      break if turn.within_range? && grid.fits?
     end
   end
 end
