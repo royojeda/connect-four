@@ -31,7 +31,7 @@ class Game
   def ensure_valid_turn
     loop do
       turn.prompt_input
-      break if turn.within_range? && grid.fits?
+      break if turn.within_range? && grid.fits?(turn)
     end
   end
 

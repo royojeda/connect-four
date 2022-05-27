@@ -1,6 +1,7 @@
 require './lib/game'
 require './lib/grid'
 require './lib/turn'
+require './lib/column'
 
 describe Game do
   describe '#over?' do
@@ -143,8 +144,8 @@ describe Game do
       end
 
       it 'calls Turn.prompt_input twice' do
-        expect(test_turn).to receive(:prompt_input).twice
         turn_game.ensure_valid_turn
+        expect(test_turn).to have_received(:prompt_input).twice
       end
     end
 
@@ -156,8 +157,8 @@ describe Game do
       end
 
       it 'calls Turn.prompt_input 4 times' do
-        expect(test_turn).to receive(:prompt_input).exactly(4).times
         turn_game.ensure_valid_turn
+        expect(test_turn).to have_received(:prompt_input).exactly(4).times
       end
     end
 
@@ -169,8 +170,8 @@ describe Game do
       end
 
       it 'calls Turn.prompt_input 3 times' do
-        expect(test_turn).to receive(:prompt_input).exactly(3).times
         turn_game.ensure_valid_turn
+        expect(test_turn).to have_received(:prompt_input).exactly(3).times
       end
     end
 
@@ -182,8 +183,8 @@ describe Game do
       end
 
       it 'calls Turn.prompt_input once' do
-        expect(test_turn).to receive(:prompt_input).once
         turn_game.ensure_valid_turn
+        expect(test_turn).to have_received(:prompt_input).once
       end
     end
   end
