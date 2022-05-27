@@ -47,4 +47,28 @@ describe Game do
       end
     end
   end
+
+  describe '#switch_player' do
+    context 'when @current_player is player_one' do
+      player_one = "\u26AA"
+      player_two = "\u26AB"
+      subject(:switch_game) { described_class.new(players: [player_one, player_two]) }
+
+      it 'changes @current_player to player_two' do
+        switch_game.switch_player
+        expect(switch_game.current_player).to eq(player_two)
+      end
+    end
+
+    context 'when @current_player is player_two' do
+      player_one = "\u26AA"
+      player_two = "\u26AB"
+      subject(:switch_game) { described_class.new(players: [player_two, player_one]) }
+
+      it 'changes @current_player to player_one' do
+        switch_game.switch_player
+        expect(switch_game.current_player).to eq(player_one)
+      end
+    end
+  end
 end
