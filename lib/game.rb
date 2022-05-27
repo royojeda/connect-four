@@ -17,7 +17,7 @@ class Game
 
   def switch_player
     players.rotate!
-    self.current_player = players[0]
+    turn.player = players[0]
   end
 
   def show_result

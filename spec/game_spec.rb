@@ -51,24 +51,36 @@ describe Game do
 
   describe '#switch_player' do
     context 'when @current_player is player_one' do
-      player_one = "\u26AA"
-      player_two = "\u26AB"
-      subject(:switch_game) { described_class.new(players: [player_one, player_two]) }
+      test_players = ["\u26AA", "\u26AB"]
 
-      it 'changes @current_player to player_two' do
+      subject(:switch_game) { described_class.new(players: test_players, turn: test_turn) }
+
+      let(:test_turn) { instance_double(Turn) }
+
+      before do
+        allow(test_turn).to receive(:player=)
         switch_game.switch_player
-        expect(switch_game.current_player).to eq(player_two)
+      end
+
+      it 'sends Turn#player with player_two' do
+        expect(test_turn).to have_received(:player=).with("\u26AB")
       end
     end
 
     context 'when @current_player is player_two' do
-      player_one = "\u26AA"
-      player_two = "\u26AB"
-      subject(:switch_game) { described_class.new(players: [player_two, player_one]) }
+      test_players = ["\u26AB", "\u26AA"]
 
-      it 'changes @current_player to player_one' do
+      subject(:switch_game) { described_class.new(players: test_players, turn: test_turn) }
+
+      let(:test_turn) { instance_double(Turn) }
+
+      before do
+        allow(test_turn).to receive(:player=)
         switch_game.switch_player
-        expect(switch_game.current_player).to eq(player_one)
+      end
+
+      it 'sends Turn#player with player_one' do
+        expect(test_turn).to have_received(:player=).with("\u26AA")
       end
     end
   end
