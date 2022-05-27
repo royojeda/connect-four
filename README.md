@@ -7,8 +7,7 @@ Game
  - #show_result
  - #ensure_valid_turn
  - @players: ["\u26AA", "\u26AB"]
- - @current_player: players[0]
- - @turn: nil
+ - @turn: Turn.new(player: players[0])
  - @grid: Grid.new
 
 Turn

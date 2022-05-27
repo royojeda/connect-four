@@ -3,8 +3,8 @@ class Game
   attr_accessor :players, :turn
 
   def initialize(grid: Grid.new,
-                 turn: Turn.new,
-                 players: ["\u26AA", "\u26AB"])
+                 players: ["\u26AA", "\u26AB"],
+                 turn: Turn.new(player: players[0]))
     @grid = grid
     @turn = turn
     @players = players
