@@ -1,6 +1,6 @@
 class Game
   attr_reader :grid
-  attr_accessor :players, :current_player, :turn
+  attr_accessor :players, :turn
 
   def initialize(grid: Grid.new,
                  turn: Turn.new,
@@ -8,7 +8,6 @@ class Game
     @grid = grid
     @turn = turn
     @players = players
-    @current_player = players[0]
   end
 
   def over?
@@ -22,7 +21,7 @@ class Game
 
   def show_result
     if grid.four_connected?
-      winning_player = current_player == "\u26AA" ? 'one' : 'two'
+      winning_player = turn.player == "\u26AA" ? 'one' : 'two'
       puts "CONGRATULATIONS, player #{winning_player}! You've won the game"
     else
       puts 'GAME OVER! The game ends in a draw.'
