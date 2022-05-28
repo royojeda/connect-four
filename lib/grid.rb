@@ -16,5 +16,7 @@ class Grid
     !columns[selected_column_index].full?
   end
 
-  def insert(move); end
+  def insert(turn)
+    columns[turn.move - 1].drop_in(turn.player)
+  end
 end

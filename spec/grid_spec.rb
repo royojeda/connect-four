@@ -69,4 +69,20 @@ describe Grid do
       end
     end
   end
+
+  describe '#insert' do
+    subject(:insert_grid) { described_class.new(columns: Array.new(7, test_column)) }
+
+    let(:test_column) { instance_double(Column) }
+    let(:test_turn) { instance_double(Turn, move: 7, player: "\u26AA") }
+
+    before do
+      allow(test_column).to receive(:drop_in)
+      insert_grid.insert(test_turn)
+    end
+
+    it 'sends #drop_in to the selected column' do
+      expect(test_column).to have_received(:drop_in).with("\u26AA").once
+    end
+  end
 end
