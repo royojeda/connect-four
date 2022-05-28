@@ -19,4 +19,11 @@ class Grid
   def insert(turn)
     columns[turn.move - 1].drop_in(turn.player)
   end
+
+  def display
+    grid_layout = <<~TEXT
+      #{columns[0]} #{columns[1]} #{columns[2]} #{columns[3]} #{columns[4]} #{columns[5]} #{columns[6]}
+    TEXT
+    puts grid_layout
+  end
 end

@@ -85,4 +85,18 @@ describe Grid do
       expect(test_column).to have_received(:drop_in).with("\u26AA").once
     end
   end
+
+  describe '#display' do
+    subject(:display_grid) { described_class.new(columns: Array.new(7, test_column)) }
+
+    let(:test_column) { instance_double(Column) }
+
+    it 'prints the current condition of the grid' do
+      expected = <<~TEXT
+        #{display_grid.columns[0]} #{display_grid.columns[1]} #{display_grid.columns[2]} #{display_grid.columns[3]} #{display_grid.columns[4]} #{display_grid.columns[5]} #{display_grid.columns[6]}
+      TEXT
+
+      expect { display_grid.display }.to output(expected).to_stdout
+    end
+  end
 end
