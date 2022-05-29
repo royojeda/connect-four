@@ -148,4 +148,63 @@ describe Grid do
       end
     end
   end
+
+  describe '#four_vertical?' do
+    context 'when the grid has 4 connected tokens in the first column' do
+      subject(:vertical_grid) { described_class.new(columns: [test_column1, test_column2, test_column3, test_column4, test_column5, test_column6, test_column7]) }
+
+      token = "\u26AB"
+      empty = '  '
+
+      let(:test_column1) { instance_double(Column, rows: [token, token, token, token, empty, empty]) }
+      let(:test_column2) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column3) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column4) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column5) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column6) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column7) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+
+      it 'returns true' do
+        expect(vertical_grid.four_vertical?).to be true
+      end
+    end
+
+    context 'when the grid has 4 connected tokens in the 5th column' do
+      subject(:vertical_grid) { described_class.new(columns: [test_column1, test_column2, test_column3, test_column4, test_column5, test_column6, test_column7]) }
+
+      token = "\u26AB"
+      empty = '  '
+
+      let(:test_column1) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column2) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column3) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column4) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column5) { instance_double(Column, rows: [empty, token, token, token, token, empty]) }
+      let(:test_column6) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column7) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+
+      it 'returns true' do
+        expect(vertical_grid.four_vertical?).to be true
+      end
+    end
+
+    context 'when the grid has does not have 4 connected tokens in the all columns' do
+      subject(:vertical_grid) { described_class.new(columns: [test_column1, test_column2, test_column3, test_column4, test_column5, test_column6, test_column7]) }
+
+      token = "\u26AB"
+      empty = '  '
+
+      let(:test_column1) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column2) { instance_double(Column, rows: [empty, token, empty, token, token, token]) }
+      let(:test_column3) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column4) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column5) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column6) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column7) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+
+      it 'returns false' do
+        expect(vertical_grid.four_vertical?).to be false
+      end
+    end
+  end
 end

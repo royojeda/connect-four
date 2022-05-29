@@ -61,4 +61,21 @@ class Grid
     end
     false
   end
+
+  def four_vertical?
+    column = 0
+    until column == 7
+      lowest = 0
+      until lowest == 3
+        return true if columns[column].rows[lowest] != '  ' &&
+                       columns[column].rows[lowest + 1] == columns[column].rows[lowest] &&
+                       columns[column].rows[lowest + 2] == columns[column].rows[lowest] &&
+                       columns[column].rows[lowest + 3] == columns[column].rows[lowest]
+
+        lowest += 1
+      end
+      column += 1
+    end
+    false
+  end
 end
