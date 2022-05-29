@@ -12,6 +12,11 @@ class Turn
   end
 
   def within_range?
-    move.between?(1, 7)
+    if move.between?(1, 7)
+      true
+    else
+      self.error = 'Invalid input.'
+      false
+    end
   end
 end
