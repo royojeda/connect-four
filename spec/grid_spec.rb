@@ -209,10 +209,6 @@ describe Grid do
   end
 
   describe '#four_diagonal?' do
-    before do
-      diagonal_grid.display
-    end
-
     context 'when the grid has 4 connected tokens in a diagonal' do
       subject(:diagonal_grid) { described_class.new(columns: [test_column1, test_column2, test_column3, test_column4, test_column5, test_column6, test_column7]) }
 
@@ -267,6 +263,52 @@ describe Grid do
 
       it 'returns false' do
         expect(diagonal_grid.four_diagonal?).to be false
+      end
+    end
+  end
+
+  describe '#four_connected?' do
+    subject(:connected_grid) { described_class.new }
+
+    context 'when 4 tokens are connected horizontally' do
+      before do
+        allow(connected_grid).to receive(:four_horizontal?).and_return(true)
+      end
+
+      it 'returns true' do
+        expect(connected_grid.four_connected?).to be(true)
+      end
+    end
+
+    context 'when 4 tokens are connected vertically' do
+      before do
+        allow(connected_grid).to receive(:four_vertical?).and_return(true)
+      end
+
+      it 'returns true' do
+        expect(connected_grid.four_connected?).to be(true)
+      end
+    end
+
+    context 'when 4 tokens are connected diagonally' do
+      before do
+        allow(connected_grid).to receive(:four_diagonal?).and_return(true)
+      end
+
+      it 'returns true' do
+        expect(connected_grid.four_connected?).to be(true)
+      end
+    end
+
+    context 'when there are no connected 4 tokens' do
+      before do
+        allow(connected_grid).to receive(:four_horizontal?).and_return(false)
+        allow(connected_grid).to receive(:four_vertical?).and_return(false)
+        allow(connected_grid).to receive(:four_diagonal?).and_return(false)
+      end
+
+      it 'returns false' do
+        expect(connected_grid.four_connected?).to be(false)
       end
     end
   end

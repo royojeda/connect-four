@@ -9,8 +9,6 @@ class Grid
     columns.all?(&:full?)
   end
 
-  def four_connected?; end
-
   def fits?(turn)
     selected_column_index = turn.move - 1
     if columns[selected_column_index].full?
@@ -97,5 +95,9 @@ class Grid
       row += 1
     end
     false
+  end
+
+  def four_connected?
+    four_horizontal? || four_vertical? || four_diagonal?
   end
 end
