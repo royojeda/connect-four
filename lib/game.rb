@@ -35,7 +35,7 @@ class Game
     loop do
       puts turn.error
       grid.display
-      puts 'Please enter your selected column (1-7): '
+      puts "Player #{turn.player}, please enter your selected column (1-7): "
       turn.prompt_input
       if turn.within_range? && grid.fits?(turn)
         turn.error = nil

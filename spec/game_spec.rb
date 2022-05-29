@@ -141,6 +141,7 @@ describe Game do
       allow(test_turn).to receive(:prompt_input)
       allow(test_turn).to receive(:error)
       allow(test_turn).to receive(:error=)
+      allow(test_turn).to receive(:player)
     end
 
     context 'when Turn.move is out of range once' do
