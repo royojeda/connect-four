@@ -44,4 +44,21 @@ class Grid
     TEXT
     puts grid_layout
   end
+
+  def four_horizontal?
+    row = 0
+    until row == 6
+      leftmost = 0
+      until leftmost == 4
+        return true if columns[leftmost].rows[row] != '  ' &&
+                       columns[leftmost + 1].rows[row] == columns[leftmost].rows[row] &&
+                       columns[leftmost + 2].rows[row] == columns[leftmost].rows[row] &&
+                       columns[leftmost + 3].rows[row] == columns[leftmost].rows[row]
+
+        leftmost += 1
+      end
+      row += 1
+    end
+    false
+  end
 end

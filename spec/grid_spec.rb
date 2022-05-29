@@ -90,34 +90,62 @@ describe Grid do
     end
   end
 
-  # describe '#display' do
-  #   subject(:display_grid) { described_class.new(columns: [test_column, test_column, test_column, test_column, test_column, test_column, test_column]) }
+  describe '#four_horizontal?' do
+    context 'when the grid has 4 connected tokens in the first row' do
+      subject(:horizontal_grid) { described_class.new(columns: [test_column1, test_column2, test_column3, test_column4, test_column5, test_column6, test_column7]) }
 
-  #   let(:test_column) { instance_double(Column) }
+      token = "\u26AB"
+      empty = '  '
 
-  #   before do
-  #     allow(test_column).to receive(:rows)
-  #   end
+      let(:test_column1) { instance_double(Column, rows: [token, empty, empty, empty, empty, empty]) }
+      let(:test_column2) { instance_double(Column, rows: [token, empty, empty, empty, empty, empty]) }
+      let(:test_column3) { instance_double(Column, rows: [token, empty, empty, empty, empty, empty]) }
+      let(:test_column4) { instance_double(Column, rows: [token, empty, empty, empty, empty, empty]) }
+      let(:test_column5) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column6) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column7) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
 
-  #   it 'prints the current condition of the grid' do
-  #     expected = <<~TEXT
-  #       \u250C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u2510
-  #       \u2502 #{test_column.rows[5]} \u2502 #{test_column.rows[5]} \u2502 #{test_column.rows[5]} \u2502 #{test_column.rows[5]} \u2502 #{test_column.rows[5]} \u2502 #{test_column.rows[5]} \u2502 #{test_column.rows[5]} \u2502
-  #       \u251C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2524
-  #       \u2502 #{test_column.rows[4]} \u2502 #{test_column.rows[4]} \u2502 #{test_column.rows[4]} \u2502 #{test_column.rows[4]} \u2502 #{test_column.rows[4]} \u2502 #{test_column.rows[4]} \u2502 #{test_column.rows[4]} \u2502
-  #       \u251C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2524
-  #       \u2502 #{test_column.rows[3]} \u2502 #{test_column.rows[3]} \u2502 #{test_column.rows[3]} \u2502 #{test_column.rows[3]} \u2502 #{test_column.rows[3]} \u2502 #{test_column.rows[3]} \u2502 #{test_column.rows[3]} \u2502
-  #       \u251C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2524
-  #       \u2502 #{test_column.rows[2]} \u2502 #{test_column.rows[2]} \u2502 #{test_column.rows[2]} \u2502 #{test_column.rows[2]} \u2502 #{test_column.rows[2]} \u2502 #{test_column.rows[2]} \u2502 #{test_column.rows[2]} \u2502
-  #       \u251C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2524
-  #       \u2502 #{test_column.rows[1]} \u2502 #{test_column.rows[1]} \u2502 #{test_column.rows[1]} \u2502 #{test_column.rows[1]} \u2502 #{test_column.rows[1]} \u2502 #{test_column.rows[1]} \u2502 #{test_column.rows[1]} \u2502
-  #       \u251C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2524
-  #       \u2502 #{test_column.rows[0]} \u2502 #{test_column.rows[0]} \u2502 #{test_column.rows[0]} \u2502 #{test_column.rows[0]} \u2502 #{test_column.rows[0]} \u2502 #{test_column.rows[0]} \u2502 #{test_column.rows[0]} \u2502
-  #       \u2514\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2518
+      it 'returns true' do
+        expect(horizontal_grid.four_horizontal?).to be(true)
+      end
+    end
 
-  #     TEXT
+    context 'when the grid has 4 connected tokens in the 5th row' do
+      subject(:horizontal_grid) { described_class.new(columns: [test_column1, test_column2, test_column3, test_column4, test_column5, test_column6, test_column7]) }
 
-  #     expect { display_grid.display }.to output(expected).to_stdout
-  #   end
-  # end
+      token = "\u26AB"
+      empty = '  '
+
+      let(:test_column1) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column2) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column3) { instance_double(Column, rows: [empty, empty, empty, empty, token, empty]) }
+      let(:test_column4) { instance_double(Column, rows: [empty, empty, empty, empty, token, empty]) }
+      let(:test_column5) { instance_double(Column, rows: [empty, empty, empty, empty, token, empty]) }
+      let(:test_column6) { instance_double(Column, rows: [empty, empty, empty, empty, token, empty]) }
+      let(:test_column7) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+
+      it 'returns true' do
+        expect(horizontal_grid.four_horizontal?).to be(true)
+      end
+    end
+
+    context 'when the grid does not have 4 connected tokens in all rows' do
+      subject(:horizontal_grid) { described_class.new(columns: [test_column1, test_column2, test_column3, test_column4, test_column5, test_column6, test_column7]) }
+
+      token = "\u26AB"
+      empty = '  '
+
+      let(:test_column1) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column2) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column3) { instance_double(Column, rows: [empty, token, empty, empty, empty, empty]) }
+      let(:test_column4) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column5) { instance_double(Column, rows: [empty, token, empty, empty, empty, empty]) }
+      let(:test_column6) { instance_double(Column, rows: [empty, token, empty, empty, empty, empty]) }
+      let(:test_column7) { instance_double(Column, rows: [empty, token, empty, empty, empty, empty]) }
+
+      it 'returns false' do
+        expect(horizontal_grid.four_horizontal?).to be(false)
+      end
+    end
+  end
 end
