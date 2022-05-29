@@ -207,4 +207,67 @@ describe Grid do
       end
     end
   end
+
+  describe '#four_diagonal?' do
+    before do
+      diagonal_grid.display
+    end
+
+    context 'when the grid has 4 connected tokens in a diagonal' do
+      subject(:diagonal_grid) { described_class.new(columns: [test_column1, test_column2, test_column3, test_column4, test_column5, test_column6, test_column7]) }
+
+      token = "\u26AB"
+      empty = '  '
+
+      let(:test_column1) { instance_double(Column, rows: [token, empty, empty, empty, empty, empty]) }
+      let(:test_column2) { instance_double(Column, rows: [empty, token, empty, empty, empty, empty]) }
+      let(:test_column3) { instance_double(Column, rows: [empty, empty, token, empty, empty, empty]) }
+      let(:test_column4) { instance_double(Column, rows: [empty, empty, empty, token, empty, empty]) }
+      let(:test_column5) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column6) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column7) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+
+      it 'returns true' do
+        expect(diagonal_grid.four_diagonal?).to be true
+      end
+    end
+
+    context 'when the grid has 4 connected tokens in a different diagonal' do
+      subject(:diagonal_grid) { described_class.new(columns: [test_column1, test_column2, test_column3, test_column4, test_column5, test_column6, test_column7]) }
+
+      token = "\u26AB"
+      empty = '  '
+
+      let(:test_column1) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column2) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column3) { instance_double(Column, rows: [empty, empty, empty, empty, token, empty]) }
+      let(:test_column4) { instance_double(Column, rows: [empty, empty, empty, token, empty, empty]) }
+      let(:test_column5) { instance_double(Column, rows: [empty, empty, token, empty, empty, empty]) }
+      let(:test_column6) { instance_double(Column, rows: [empty, token, empty, empty, empty, empty]) }
+      let(:test_column7) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+
+      it 'returns true' do
+        expect(diagonal_grid.four_diagonal?).to be true
+      end
+    end
+
+    context 'when the grid does not have 4 connected tokens in all diagonals' do
+      subject(:diagonal_grid) { described_class.new(columns: [test_column1, test_column2, test_column3, test_column4, test_column5, test_column6, test_column7]) }
+
+      token = "\u26AB"
+      empty = '  '
+
+      let(:test_column1) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column2) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column3) { instance_double(Column, rows: [empty, token, empty, empty, empty, empty]) }
+      let(:test_column4) { instance_double(Column, rows: [empty, empty, empty, empty, empty, empty]) }
+      let(:test_column5) { instance_double(Column, rows: [empty, empty, empty, token, empty, empty]) }
+      let(:test_column6) { instance_double(Column, rows: [empty, empty, empty, empty, token, empty]) }
+      let(:test_column7) { instance_double(Column, rows: [empty, empty, empty, empty, empty, token]) }
+
+      it 'returns false' do
+        expect(diagonal_grid.four_diagonal?).to be false
+      end
+    end
+  end
 end

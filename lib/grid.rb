@@ -78,4 +78,24 @@ class Grid
     end
     false
   end
+
+  def four_diagonal?
+    row = 0
+    until row == 6
+      leftmost = 0
+      until leftmost == 4
+        return true if columns[leftmost].rows[row] != '  ' &&
+                       ((columns[leftmost + 1].rows[row + 1] == columns[leftmost].rows[row] &&
+                       columns[leftmost + 2].rows[row + 2] == columns[leftmost].rows[row] &&
+                       columns[leftmost + 3].rows[row + 3] == columns[leftmost].rows[row]) ||
+                       (columns[leftmost + 1].rows[row - 1] == columns[leftmost].rows[row] &&
+                       columns[leftmost + 2].rows[row - 2] == columns[leftmost].rows[row] &&
+                       columns[leftmost + 3].rows[row - 3] == columns[leftmost].rows[row]))
+
+        leftmost += 1
+      end
+      row += 1
+    end
+    false
+  end
 end
