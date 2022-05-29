@@ -84,13 +84,17 @@ describe Game do
     let(:test_grid) { instance_double(Grid) }
     let(:test_turn) { instance_double(Turn) }
 
+    before do
+      allow(test_grid).to receive(:full?)
+      allow(result_game).to receive(:puts)
+      allow(test_turn).to receive(:error)
+    end
+
     context 'when player_one is the winner' do
       before do
         player_one = "\u26AA"
         allow(test_turn).to receive(:player).and_return(player_one)
-        allow(test_grid).to receive(:full?)
         allow(test_grid).to receive(:four_connected?).and_return(true)
-        allow(result_game).to receive(:puts)
         result_game.show_result
       end
 
@@ -104,9 +108,7 @@ describe Game do
       before do
         player_two = "\u26AB"
         allow(test_turn).to receive(:player).and_return(player_two)
-        allow(test_grid).to receive(:full?)
         allow(test_grid).to receive(:four_connected?).and_return(true)
-        allow(result_game).to receive(:puts)
         result_game.show_result
       end
 
@@ -119,7 +121,6 @@ describe Game do
     context 'when the game is tied' do
       before do
         allow(test_grid).to receive(:four_connected?).and_return(false)
-        allow(result_game).to receive(:puts)
         result_game.show_result
       end
 
