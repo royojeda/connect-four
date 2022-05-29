@@ -1,16 +1,16 @@
 class Column
   attr_reader :rows
 
-  def initialize(rows: Array.new(6, ' '))
+  def initialize(rows: ['  ', '  ', '  ', '  ', '  ', '  '])
     @rows = rows
   end
 
   def full?
-    rows.none?(' ')
+    rows.none?('  ')
   end
 
   def lowest_available
-    rows.index(' ')
+    rows.index('  ')
   end
 
   def drop_in(token)

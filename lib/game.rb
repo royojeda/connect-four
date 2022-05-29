@@ -20,6 +20,8 @@ class Game
   end
 
   def show_result
+    system 'clear'
+    grid.display
     if grid.four_connected?
       winning_player = turn.player == "\u26AA" ? 'one' : 'two'
       puts "CONGRATULATIONS, player #{winning_player}! You've won the game"
@@ -30,6 +32,8 @@ class Game
 
   def ensure_valid_turn
     loop do
+      grid.display
+      puts 'Please enter your selected column (1-7): '
       turn.prompt_input
       break if turn.within_range? && grid.fits?(turn)
     end
@@ -42,6 +46,7 @@ class Game
       break if over?
 
       switch_player
+      system 'clear'
     end
     show_result
   end
