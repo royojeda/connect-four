@@ -13,7 +13,7 @@ describe Column do
     end
 
     context 'when the @rows are empty' do
-      token = ' '
+      token = '  '
       initial_rows = Array.new(6, token)
       subject(:empty_column) { described_class.new(rows: initial_rows) }
 
@@ -24,7 +24,7 @@ describe Column do
 
     context 'when the @rows are partially filled' do
       token = "\u26AA"
-      initial_rows = [token, token, ' ', ' ', ' ', ' ']
+      initial_rows = [token, token, '  ', '  ', '  ', '  ']
       subject(:partial_column) { described_class.new(rows: initial_rows) }
 
       it 'returns false' do
@@ -35,7 +35,7 @@ describe Column do
 
   describe '#lowest_available' do
     context 'when @rows are empty' do
-      token = ' '
+      token = '  '
       initial_rows = Array.new(6, token)
       subject(:empty_column) { described_class.new(rows: initial_rows) }
 
@@ -56,7 +56,7 @@ describe Column do
 
     context 'when the @rows have 3 player tokens' do
       token = "\u26AA"
-      initial_rows = [token, token, token, ' ', ' ', ' ']
+      initial_rows = [token, token, token, '  ', '  ', '  ']
       subject(:partial_column) { described_class.new(rows: initial_rows) }
 
       it 'returns 3' do
@@ -68,11 +68,11 @@ describe Column do
   describe '#drop_in' do
     context 'when the Column is not full' do
       token = "\u26AA"
-      initial_rows = [token, token, ' ', ' ', ' ', ' ']
+      initial_rows = [token, token, '  ', '  ', '  ', '  ']
       subject(:droppable_column) { described_class.new(rows: initial_rows) }
 
       it 'stores the player token to the lowest available row' do
-        expected_rows = [token, token, token, ' ', ' ', ' ']
+        expected_rows = [token, token, token, '  ', '  ', '  ']
         expect { droppable_column.drop_in(token) }.to change(droppable_column, :rows).to(expected_rows)
       end
     end

@@ -93,7 +93,20 @@ describe Grid do
 
     it 'prints the current condition of the grid' do
       expected = <<~TEXT
-        #{display_grid.columns[0]} #{display_grid.columns[1]} #{display_grid.columns[2]} #{display_grid.columns[3]} #{display_grid.columns[4]} #{display_grid.columns[5]} #{display_grid.columns[6]}
+        \u250C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u252C\u2500\u2500\u2500\u2500\u2510
+        \u2502 #{columns[0].rows[5]} \u2502 #{columns[1].rows[5]} \u2502 #{columns[2].rows[5]} \u2502 #{columns[3].rows[5]} \u2502 #{columns[4].rows[5]} \u2502 #{columns[5].rows[5]} \u2502 #{columns[6].rows[5]} \u2502
+        \u251C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2524
+        \u2502 #{columns[0].rows[4]} \u2502 #{columns[1].rows[4]} \u2502 #{columns[2].rows[4]} \u2502 #{columns[3].rows[4]} \u2502 #{columns[4].rows[4]} \u2502 #{columns[5].rows[4]} \u2502 #{columns[6].rows[4]} \u2502
+        \u251C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2524
+        \u2502 #{columns[0].rows[3]} \u2502 #{columns[1].rows[3]} \u2502 #{columns[2].rows[3]} \u2502 #{columns[3].rows[3]} \u2502 #{columns[4].rows[3]} \u2502 #{columns[5].rows[3]} \u2502 #{columns[6].rows[3]} \u2502
+        \u251C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2524
+        \u2502 #{columns[0].rows[2]} \u2502 #{columns[1].rows[2]} \u2502 #{columns[2].rows[2]} \u2502 #{columns[3].rows[2]} \u2502 #{columns[4].rows[2]} \u2502 #{columns[5].rows[2]} \u2502 #{columns[6].rows[2]} \u2502
+        \u251C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2524
+        \u2502 #{columns[0].rows[1]} \u2502 #{columns[1].rows[1]} \u2502 #{columns[2].rows[1]} \u2502 #{columns[3].rows[1]} \u2502 #{columns[4].rows[1]} \u2502 #{columns[5].rows[1]} \u2502 #{columns[6].rows[1]} \u2502
+        \u251C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u253C\u2500\u2500\u2500\u2500\u2524
+        \u2502 #{columns[0].rows[0]} \u2502 #{columns[1].rows[0]} \u2502 #{columns[2].rows[0]} \u2502 #{columns[3].rows[0]} \u2502 #{columns[4].rows[0]} \u2502 #{columns[5].rows[0]} \u2502 #{columns[6].rows[0]} \u2502
+        \u2514\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2518
+
       TEXT
 
       expect { display_grid.display }.to output(expected).to_stdout
