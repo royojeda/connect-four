@@ -136,9 +136,14 @@ describe Game do
     let(:test_turn) { instance_double(Turn) }
     let(:test_grid) { instance_double(Grid) }
 
+    before do
+      allow(test_turn).to receive(:prompt_input)
+      allow(test_turn).to receive(:error)
+      allow(test_turn).to receive(:error=)
+    end
+
     context 'when Turn.move is out of range once' do
       before do
-        allow(test_turn).to receive(:prompt_input)
         allow(test_turn).to receive(:within_range?).and_return(false, true)
         allow(test_grid).to receive(:fits?).and_return(true)
       end
@@ -151,7 +156,6 @@ describe Game do
 
     context 'when Turn.move is out of range 3 times' do
       before do
-        allow(test_turn).to receive(:prompt_input)
         allow(test_turn).to receive(:within_range?).and_return(false, false, false, true)
         allow(test_grid).to receive(:fits?).and_return(true)
       end
@@ -164,7 +168,6 @@ describe Game do
 
     context 'when Turn.move overflows the grid twice' do
       before do
-        allow(test_turn).to receive(:prompt_input)
         allow(test_turn).to receive(:within_range?).and_return(true)
         allow(test_grid).to receive(:fits?).and_return(false, false, true)
       end
@@ -177,7 +180,6 @@ describe Game do
 
     context "when Turn.move doesn't overflow the grid" do
       before do
-        allow(test_turn).to receive(:prompt_input)
         allow(test_turn).to receive(:within_range?).and_return(true)
         allow(test_grid).to receive(:fits?).and_return(true)
       end

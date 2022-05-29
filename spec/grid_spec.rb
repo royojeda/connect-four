@@ -45,6 +45,10 @@ describe Grid do
     let(:test_column) { instance_double(Column) }
     let(:test_turn) { instance_double(Turn) }
 
+    before do
+      allow(test_turn).to receive(:error=)
+    end
+
     context 'when the selected column is full' do
       before do
         selected_column = 7

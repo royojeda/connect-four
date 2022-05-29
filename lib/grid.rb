@@ -13,7 +13,12 @@ class Grid
 
   def fits?(turn)
     selected_column_index = turn.move - 1
-    !columns[selected_column_index].full?
+    if columns[selected_column_index].full?
+      turn.error = 'That column is full. Please select another one.'
+      false
+    else
+      true
+    end
   end
 
   def insert(turn)

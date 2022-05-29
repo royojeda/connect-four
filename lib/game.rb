@@ -32,10 +32,16 @@ class Game
 
   def ensure_valid_turn
     loop do
+      puts turn.error
       grid.display
       puts 'Please enter your selected column (1-7): '
       turn.prompt_input
-      break if turn.within_range? && grid.fits?(turn)
+      if turn.within_range? && grid.fits?(turn)
+        turn.error = nil
+        break
+      end
+
+      system 'clear'
     end
   end
 
