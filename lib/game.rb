@@ -21,6 +21,7 @@ class Game
 
   def show_result
     system 'clear'
+    puts turn.error
     grid.display
     if grid.four_connected?
       winning_player = turn.player == "\u26AA" ? 'one' : 'two'
